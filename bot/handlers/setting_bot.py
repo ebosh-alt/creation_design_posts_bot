@@ -13,6 +13,7 @@ router = Router()
 
 
 @router.callback_query(lambda call: call.data == "back_to_setting")
+@router.callback_query(lambda call: call.data == "back_to_setting_from_editor")
 @router.message(lambda message: message.text == "Настройки")
 async def settings(message: Message | CallbackQuery, state: FSMContext):
     id = message.from_user.id
@@ -29,6 +30,9 @@ async def settings(message: Message | CallbackQuery, state: FSMContext):
     if type(message) is CallbackQuery:
         if message.data == "back_to_setting":
             await state.clear()
+        elif message.data == "back_to_setting_from_editor":
+            await DeleteMessage(chat_id=id, message_id=user.message_id)
+
     else:
         print(type(id), type(user.message_id), type(message.message_id))
         await DeleteMessage(chat_id=id, message_id=user.message_id)

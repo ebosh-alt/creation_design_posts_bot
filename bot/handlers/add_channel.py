@@ -2,7 +2,7 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.methods import SendMessage, GetChatMemberCount, GetChat, DeleteMessage
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 
 from bot import keyboards as kb
 from bot.handlers.setting_channel import settings_channel
@@ -14,8 +14,9 @@ from bot.db import Channel, channels, users
 router = Router()
 
 
+@router.callback_query(lambda call: call.data == "add_channel")
 @router.message(Command("addchannel"))
-async def start_add_channel(message: Message, state: FSMContext):
+async def start_add_channel(message: Message | CallbackQuery, state: FSMContext):
     id = message.from_user.id
     await state.set_state(States.add_channel)
     mes = await SendMessage(chat_id=id, text=get_mes("messages/start_add_channel.md", user_name_bot="tet"))
@@ -39,7 +40,7 @@ async def inp_channel(message: Message, state: FSMContext):
                             text=get_mes("messages/successfully_add_channel.md", name_channel=chat.title,
                                          link_to_channel=chat.invite_link),
                             reply_markup=kb.create_keyboard(
-                                {"Настройки канала": f"settings_channel_{message.forward_from_chat.id}"}))
+                                {"Настройки канала": f"settings_channel_{id_channel}"}))
 
     await state.clear()
     await state.set_state(States.setting_channel)

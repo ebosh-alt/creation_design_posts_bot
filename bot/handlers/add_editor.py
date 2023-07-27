@@ -23,8 +23,8 @@ async def add_editor(call: CallbackQuery, state: FSMContext):
     await EditMessageText(chat_id=id,
                           message_id=user.message_id,
                           text=get_mes("messages/add_editor.md", invoice_link=link),
-                          reply_markup=kb.create_keyboard({"Назад": "back_to_setting",
+                          reply_markup=kb.create_keyboard({"Назад": "back_to_setting_from_editor",
                                                            "Новая ссылка": "new_link"
-                                                           }))
+                                                           }, 2))
 
 new_editor = router

@@ -4,7 +4,7 @@ from bot.config import link_bot
 
 
 def add_link(link):
-    with open("../db/invoice_link.txt", "a") as f:
+    with open("bot/db/invoice_link.txt", "a") as f:
         f.write(link + "\n")
 
 
