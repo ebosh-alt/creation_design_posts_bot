@@ -1,0 +1,5 @@
+.db/database-shm
+.db/database-wal
+.idea
+.__pycache__
+__pycache__

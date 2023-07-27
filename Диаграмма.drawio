@@ -1,0 +1,175 @@
+<mxfile host="Electron" modified="2023-07-25T16:41:53.170Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.1 Chrome/112.0.5615.204 Electron/24.6.1 Safari/537.36" etag="H_pVnLfcygu7oElW4-5q" version="21.6.1" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1274" dy="285" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-3" value="/start" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="320" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-8" value="бот:&lt;br&gt;&lt;div&gt;Это ваш личный Baslay-бот для отложенного постинга. Для начала работы воспользуйтесь командами или основным меню.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;/addchannel – подключение нового канала&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="160" width="280" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-9" target="V2auYOSqjSP7bQlNNE2f-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-9" target="V2auYOSqjSP7bQlNNE2f-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="380" />
+              <mxPoint x="100" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-9" value="&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;/blockquote&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;создать пост&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;контент-план&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;изменить пост&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;/span&gt;&lt;div style=&quot;&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="280" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-10" target="V2auYOSqjSP7bQlNNE2f-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-10" value="/addchannel" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="40" y="419" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-11" value="создать пост" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="260" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-12" value="контент-план" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="480" y="419" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-13" value="изменить-пост" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="700" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="829.9999999999998" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-17" value="бот:&lt;br&gt;&lt;div&gt;Чтобы подключить канал, назначьте бота его администратором. Для этого:&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;1. Перейдите в канал.&lt;/div&gt;&lt;div&gt;2. Нажмите на названии канала, чтобы открыть его настройки.&lt;/div&gt;&lt;div&gt;3. Перейдите в «Администраторы» → «Добавить администратора».&lt;/div&gt;&lt;div&gt;4. Введите в поиске @web_app_search_merletplace_bot. В результатах поиска увидите ваш бот. Кликните по нему, потом нажмите «Готово». В бот придет сообщение, что канал успешно подключен.&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;После просто перешлите сюда любое сообщение из канала.&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-105" y="540" width="410" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="889.9999999999998" as="sourcePoint" />
+            <mxPoint x="100" y="940" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-23" value="&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;бот:&lt;/span&gt;&lt;br style=&quot;border-color: var(--border-color); color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;🎉 Поздравляем! Канал «ыыы (https://t.me/+NbrErz7sUSQyZTIy)» успешно подключен к боту.&lt;/span&gt;&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-5" y="940" width="210" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-24">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="1119.9999999999998" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-24" value="настройки канала" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-5" y="1030" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-28" value="Канал «ыыы (https://t.me/+NbrErz7sUSQyZTIy)»  &#xa;&#xa;&#xa;Подписчики: 2 человека" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="855" y="780" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="980" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="970" y="960" />
+              <mxPoint x="680" y="960" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="890.0666666666666" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1110.0666666666666" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1330.0666666666666" y="980" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="970" y="960" />
+              <mxPoint x="1330" y="960" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1550.066666666667" y="980" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="970" y="960" />
+              <mxPoint x="1550" y="960" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-30" value="Автоподпись&lt;br&gt;Потдверждать публикацию&lt;br&gt;Интерфейс выбора времени&lt;br&gt;Назад&lt;br&gt;Удалить канал" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="855" y="860" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-41" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;сообщение из канала&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="40" y="830" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="970" y="740" as="targetPoint" />
+            <mxPoint x="150" y="1140" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="590" y="1140" />
+              <mxPoint x="590" y="740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-42" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;настройки канала&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="40" y="1120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-43" value="&#xa;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;Автоподпись&lt;/span&gt;&#xa;&#xa;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="620" y="980" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-44" value="&#xa;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;Потдверждать публикацию&lt;/span&gt;&#xa;&#xa;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="830" y="980" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-45" value="&#xa;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;Интерфейс выбора времени&lt;/span&gt;&#xa;&#xa;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1050" y="980" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-46" value="&#xa;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;Удалить канал&lt;/span&gt;&#xa;&#xa;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1270" y="980" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-47" target="V2auYOSqjSP7bQlNNE2f-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1650" y="1010" />
+              <mxPoint x="1650" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-47" value="&#xa;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;Назад&lt;/span&gt;&#xa;&#xa;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1490" y="980" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-50" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-48" target="V2auYOSqjSP7bQlNNE2f-49">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-48" value="настройки" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="910" y="419" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-54" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-49" target="V2auYOSqjSP7bQlNNE2f-51">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-49" value="список каналов" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="910" y="525" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-52" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="V2auYOSqjSP7bQlNNE2f-51" target="V2auYOSqjSP7bQlNNE2f-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V2auYOSqjSP7bQlNNE2f-51" value="выбор канал" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="910" y="650" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
