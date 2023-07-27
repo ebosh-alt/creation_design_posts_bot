@@ -5,7 +5,7 @@ from aiogram.methods import SendMessage, GetChatMemberCount, GetChat, DeleteMess
 from aiogram.types import Message
 
 from bot import keyboards as kb
-from bot.handlers.settings import settings_channel
+from bot.handlers.setting_channel import settings_channel
 
 from bot.states import States
 from bot.utils.GetMessage import get_mes

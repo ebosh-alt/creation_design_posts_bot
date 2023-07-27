@@ -7,37 +7,37 @@ from bot import keyboards as kb
 
 from bot.states import States
 from bot.utils.GetMessage import get_mes
-from bot.db import Channel, channels, users
-
+from bot.db import channels, users
+from .setting_bot import settings
 router = Router()
 
 
-@router.callback_query(lambda call: call.data == "back_to_setting")
-@router.message(lambda message: message.text == "Настройки")
-async def settings(message: Message | CallbackQuery, state: FSMContext):
-    id = message.from_user.id
-    user = users.get(id)
-
-    button = {
-        "Редакторы": "editors",
-        "Добавить канал": "add_channel",
-        "Добавить группу": "add_group",
-    }
-
-    for channel in channels:
-        button.update({channel.name: f"settings_channel_{channel.id}"})
-    if type(message) is CallbackQuery:
-        if message.data == "back_to_setting":
-            await state.clear()
-    else:
-        print(type(id), type(user.message_id), type(message.message_id))
-        await DeleteMessage(chat_id=id, message_id=user.message_id)
-        await DeleteMessage(chat_id=id, message_id=message.message_id)
-    mes = await SendMessage(chat_id=id,
-                            text=get_mes("messages/settings.md"),
-                            reply_markup=kb.create_keyboard(button, 1, 2))
-    user.message_id = mes.message_id
-    users.update(user)
+# @router.callback_query(lambda call: call.data == "back_to_setting")
+# @router.message(lambda message: message.text == "Настройки")
+# async def settings(message: Message | CallbackQuery, state: FSMContext):
+#     id = message.from_user.id
+#     user = users.get(id)
+#
+#     button = {
+#         "Редакторы": "editors",
+#         "Добавить канал": "add_channel",
+#         "Добавить группу": "add_group",
+#     }
+#
+#     for channel in channels:
+#         button.update({channel.name: f"settings_channel_{channel.id}"})
+#     if type(message) is CallbackQuery:
+#         if message.data == "back_to_setting":
+#             await state.clear()
+#     else:
+#         print(type(id), type(user.message_id), type(message.message_id))
+#         await DeleteMessage(chat_id=id, message_id=user.message_id)
+#         await DeleteMessage(chat_id=id, message_id=message.message_id)
+#     mes = await SendMessage(chat_id=id,
+#                             text=get_mes("messages/settings.md"),
+#                             reply_markup=kb.create_keyboard(button, 1, 2))
+#     user.message_id = mes.message_id
+#     users.update(user)
 
 
 @router.callback_query(States.setting_channel, lambda call: "confirm_public" in call.data or call.data == "back")

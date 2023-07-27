@@ -12,6 +12,7 @@ create table users(
     id primary key,
     message_id int
 );
+
 select * from users;
-drop table channels;
+drop table users;
 

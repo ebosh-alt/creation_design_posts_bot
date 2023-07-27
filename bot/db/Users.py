@@ -49,7 +49,7 @@ class Users(Sqlite3_Database):
         if id in self:
             obj_tuple = self.get_elem_sqllite3(id)
             obj = User(id=obj_tuple[0],
-                       message_id=obj_tuple[1]
+                       message_id=obj_tuple[1],
                        )
             return obj
         return False
