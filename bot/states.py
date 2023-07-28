@@ -5,6 +5,8 @@ class States(StatesGroup):
     add_channel = State()
     setting_channel = State()
     add_editor = State()
+    new_post = State()
+    button = State()
 
 
 

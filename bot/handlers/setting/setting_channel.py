@@ -1,6 +1,6 @@
 from aiogram import Router
 from aiogram.fsm.context import FSMContext
-from aiogram.methods import SendMessage, GetChatMemberCount, EditMessageText, DeleteMessage, AnswerCallbackQuery, \
+from aiogram.methods import GetChatMemberCount, EditMessageText, DeleteMessage, AnswerCallbackQuery, \
     LeaveChat
 from aiogram.types import Message, CallbackQuery
 from bot import keyboards as kb
@@ -8,7 +8,7 @@ from bot import keyboards as kb
 from bot.states import States
 from bot.utils.GetMessage import get_mes
 from bot.db import channels, users
-from .setting_bot import settings
+from bot.handlers.setting.setting_bot import settings
 router = Router()
 
 
@@ -33,14 +33,14 @@ async def settings_channel(call: CallbackQuery | Message, state: FSMContext):
         channel = channels.get(id_channel)
     if channel.confirm_public:
         button = {
-            "Автоподпись": "signing",
+            # "Автоподпись": "signing",
             "✅Подтверждать публикацию": f"confirm_public",
             "Назад": "back_to_setting",
             "Удалить канал/группу": "delete_channel",
         }
     else:
         button = {
-            "Автоподпись": "signing",
+            # "Автоподпись": "signing",
             "❌Подтверждать публикацию": f"confirm_public",
             "Назад": "back_to_setting",
             "Удалить канал/группу": "delete_channel",

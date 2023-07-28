@@ -2,7 +2,7 @@ from aiogram import types
 from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
 
 
-def create_keyboard(name_buttons: list | dict, *sizes: int) -> types.InlineKeyboardMarkup:
+def create_keyboard(name_buttons: list | dict, *sizes: int | list) -> types.InlineKeyboardMarkup:
     keyboard = InlineKeyboardBuilder()
 
     for name_button in name_buttons:
@@ -30,8 +30,11 @@ def create_keyboard(name_buttons: list | dict, *sizes: int) -> types.InlineKeybo
                 keyboard.button(
                     text=name_button, callback_data=name_buttons[name_button]
                 )
+    # if type(sizes) is tuple:
     if len(sizes) == 0:
         sizes = (1,)
+    elif type(sizes[0]) is list:
+        sizes = sizes[0]
     keyboard.adjust(*sizes)
     return keyboard.as_markup(resize_keyboard=True, one_time_keyboard=True)
 
