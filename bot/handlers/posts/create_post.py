@@ -6,10 +6,9 @@ from aiogram.types import Message, CallbackQuery
 
 from bot import keyboards as kb
 from bot.const import NewPost
-
+from bot.db import channels, users
 from bot.states import States
 from bot.utils.GetMessage import get_mes
-from bot.db import Channel, channels, users
 
 router = Router()
 
@@ -46,26 +45,25 @@ async def choice_channel(call: CallbackQuery, state: FSMContext):
         await state.update_data(post=new_post)
     else:
         data = await state.get_data()
-
         new_post: NewPost = data["post"]
         channel = channels.get(new_post.id_channel)
-        await DeleteMessage(chat_id=id, message_id=call.message.message_id)
+        await DeleteMessage(chat_id=id, message_id=new_post.id_post)
     await EditMessageText(chat_id=id,
                           message_id=user.message_id,
                           text=get_mes("messages/text_by_post.md", name=channel.name, link=channel.link),
                           )
 
 
-@router.message(States.new_post)
+@router.callback_query(States.new_post, lambda call: call.data == "back_to_create_post")
+@router.message(States.new_post, lambda message: message.photo is None and message.video is None and message.sticker is None)
 async def inp_text(message: Message, state: FSMContext):
     id = message.from_user.id
     user = users.get(id)
     data = await state.get_data()
     new_post: NewPost = data["post"]
-    new_post.text = message.text
-    new_post.id_post = user.message_id
-    await DeleteMessage(chat_id=id, message_id=message.message_id)
-    if new_post.media is None and new_post.url_button is None and new_post.hidden_button is None:
+
+    button = {}
+    if new_post.media.path is None and new_post.url_button is None and new_post.hidden_button is None:
         button = {
             "Изменить текст": "change_text",
             "Добавить медиа": "add_media",
@@ -74,6 +72,22 @@ async def inp_text(message: Message, state: FSMContext):
             "<< Отменить": "cancel",
             "Продолжить >>": "continue",
         }
+
+    elif new_post.url_button is not None and new_post.media.path is None and new_post.hidden_button is None:
+        button = {
+            "Изменить текст": "change_text",
+            "Добавить медиа": "add_media",
+            "+ URL-кнопки": "add_url_button",
+            "+ Скрытое продолжение": "add_hidden_button",
+            "<< Отменить": "cancel",
+            "Продолжить >>": "continue",
+        }
+
+    if type(message) is Message:
+        new_post.text = message.text
+        new_post.id_post = user.message_id
+        await state.update_data(post=new_post)
+        await DeleteMessage(chat_id=id, message_id=message.message_id)
         await EditMessageText(chat_id=id,
                               message_id=user.message_id,
                               text=new_post.text)
@@ -83,6 +97,11 @@ async def inp_text(message: Message, state: FSMContext):
                                 reply_markup=kb.create_keyboard(button, 2, 2, 2))
         user.message_id = mes.message_id
         users.update(user)
+    else:
+        await EditMessageText(chat_id=id,
+                              message_id=user.message_id,
+                              text=get_mes("messages/setting_post.md"),
+                              reply_markup=kb.create_keyboard(button, 2, 2, 2))
 
 
 new_post_router = router

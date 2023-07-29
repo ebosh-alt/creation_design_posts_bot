@@ -1,26 +1,34 @@
 from typing import NewType
+from enum import Enum
 
-NewHiddenButton = NewType('NewHiddenButton', str)
+NewHiddenButton = NewType('NewHiddenButton', list)
 NewUrlButton = NewType('NewUrlButton', str)
 NewPhoto = NewType('NewPhoto', str)
 NewVideo = NewType('NewVideo', str)
 NewEmoji = NewType('NewEmoji', str)
 
 
+class TypeFile(Enum):
+    Photo = 0
+    Video = 1
+    Sticker = 2
+
+
 class NewButton:
-    type: NewHiddenButton | NewUrlButton = None
     button: dict = None
+    sizes: list = None
 
 
 class NewMedia:
     path: str = None
-    type: NewVideo | NewPhoto | NewEmoji = None
+    type: TypeFile = None
+    location: bool = False
 
 
 class NewPost:
     id_channel: int = None
     text: str = None
-    url_button: list[NewButton] = None
+    url_button: NewButton = None
     hidden_button: list[NewButton] = None
-    media: dict[int, NewMedia] = None
+    media: NewMedia = NewMedia
     id_post: int = None

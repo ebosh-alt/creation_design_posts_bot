@@ -1,17 +1,14 @@
+import validators
 from aiogram import Router
-from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.methods import SendMessage, EditMessageText, DeleteMessage
 from aiogram.types import Message, CallbackQuery
-import validators
 
 from bot import keyboards as kb
 from bot.const import NewPost, NewButton, NewUrlButton
-from bot.handlers.posts.create_post import inp_text
-
+from bot.db import users
 from bot.states import States
 from bot.utils.GetMessage import get_mes
-from bot.db import Channel, channels, users
 
 router = Router()
 
@@ -19,7 +16,11 @@ router = Router()
 def parse_button(data: str) -> tuple[dict, list]:
     if "|" not in data:
         new_data = []
-        data = data.split("\n")
+        if "\n" in data:
+            data = data.split("\n")
+        else:
+            data = data.split(" ")
+        print(data)
         link = data[-1]
         text = " ".join(data[:-1])
         button = {}
@@ -75,9 +76,10 @@ async def data_button(message: Message, state: FSMContext):
     data = await state.get_data()
     new_post: NewPost = data["post"]
     new_button = NewButton()
-    new_button.type = NewUrlButton("NewUrlButton")
     new_button.button = buttons
+    new_button.sizes = sizes
     new_post.url_button = new_button
+
     button = {
         "Изменить текст": "change_text",
         "Добавить медиа": "add_media",
@@ -89,6 +91,7 @@ async def data_button(message: Message, state: FSMContext):
     await DeleteMessage(chat_id=id, message_id=message.message_id)
     await DeleteMessage(chat_id=id, message_id=new_post.id_post)
     await DeleteMessage(chat_id=id, message_id=user.message_id)
+    print(buttons)
     post = await SendMessage(chat_id=message.from_user.id,
                              message_id=new_post.id_post,
                              text=new_post.text,
@@ -98,11 +101,11 @@ async def data_button(message: Message, state: FSMContext):
                             text=get_mes("messages/setting_post.md"),
                             reply_markup=kb.create_keyboard(button, 2, 2, 2))
     new_post.id_post = post.message_id
+
     user.message_id = mes.message_id
     users.update(user)
     await state.set_state(States.new_post)
     await state.update_data(post=new_post)
-
 
 
 button_router = router

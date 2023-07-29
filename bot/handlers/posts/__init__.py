@@ -1,4 +1,5 @@
 from .create_post import new_post_router
 from .add_button import button_router
+from .add_media import add_media_router
 
-posts_router = (new_post_router, button_router)
+posts_router = (new_post_router, button_router, add_media_router)
