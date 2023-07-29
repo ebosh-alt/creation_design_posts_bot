@@ -24,3 +24,6 @@ if __name__ == "__main__":
 
     with suppress(KeyboardInterrupt):
         asyncio.run(main())
+
+
+### если есть url | hidden клавиатура то нужно добавить возможность удаления

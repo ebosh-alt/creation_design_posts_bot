@@ -22,7 +22,8 @@ class NewButton:
 class NewMedia:
     path: str = None
     type: TypeFile = None
-    location: bool = False
+    location: bool = True
+    id_sticker: int = None
 
 
 class NewPost:

@@ -1,12 +1,14 @@
 import validators
 from aiogram import Router
 from aiogram.fsm.context import FSMContext
-from aiogram.methods import SendMessage, EditMessageText, DeleteMessage
-from aiogram.types import Message, CallbackQuery
+from aiogram.methods import SendMessage, EditMessageText, DeleteMessage, SendPhoto, SendAnimation, SendVideo
+from aiogram.types import Message, CallbackQuery, FSInputFile
 
 from bot import keyboards as kb
-from bot.const import NewPost, NewButton, NewUrlButton
+from bot.const import NewPost, NewButton, NewUrlButton, TypeFile
 from bot.db import users
+from bot.handlers.posts.add_media import download_media
+from bot.handlers.posts.create_post import get_button
 from bot.states import States
 from bot.utils.GetMessage import get_mes
 
@@ -20,7 +22,6 @@ def parse_button(data: str) -> tuple[dict, list]:
             data = data.split("\n")
         else:
             data = data.split(" ")
-        print(data)
         link = data[-1]
         text = " ".join(data[:-1])
         button = {}
@@ -79,27 +80,59 @@ async def data_button(message: Message, state: FSMContext):
     new_button.button = buttons
     new_button.sizes = sizes
     new_post.url_button = new_button
+    button = get_button(new_post)
 
-    button = {
-        "Изменить текст": "change_text",
-        "Добавить медиа": "add_media",
-        "Изменить URL-кнопки": "add_url_button",
-        "+ Скрытое продолжение": "add_hidden_button",
-        "<< Отменить": "cancel",
-        "Продолжить >>": "continue",
-    }
     await DeleteMessage(chat_id=id, message_id=message.message_id)
     await DeleteMessage(chat_id=id, message_id=new_post.id_post)
     await DeleteMessage(chat_id=id, message_id=user.message_id)
-    print(buttons)
-    post = await SendMessage(chat_id=message.from_user.id,
-                             message_id=new_post.id_post,
-                             text=new_post.text,
-                             reply_markup=kb.create_keyboard(buttons, sizes))
-    mes = await SendMessage(chat_id=id,
-                            message_id=user.message_id,
-                            text=get_mes("messages/setting_post.md"),
-                            reply_markup=kb.create_keyboard(button, 2, 2, 2))
+    if new_post.media.path is None:
+        post = await SendMessage(chat_id=message.from_user.id,
+                                 message_id=new_post.id_post,
+                                 text=new_post.text,
+                                 reply_markup=kb.create_keyboard(buttons, sizes))
+        mes = await SendMessage(chat_id=id,
+                                message_id=user.message_id,
+                                text=get_mes("messages/setting_post.md"),
+                                reply_markup=kb.create_keyboard(button, 2, 2, 2))
+    else:
+        file = FSInputFile(new_post.media.path)
+        type_file = new_post.media.type
+        match type_file:
+            case TypeFile.Photo:
+                post = await SendPhoto(chat_id=id,
+                                       caption=new_post.text,
+                                       photo=file,
+                                       reply_markup=kb.create_keyboard(buttons, sizes)
+                                       )
+                mes = await SendMessage(chat_id=id,
+                                        text=get_mes("messages/setting_post.md"),
+                                        reply_markup=kb.create_keyboard(button, 2, 2, 2))
+
+            case TypeFile.Video:
+                post = await SendVideo(chat_id=id,
+                                       caption=new_post.text,
+                                       video=file,
+                                       reply_markup=kb.create_keyboard(buttons, sizes)
+                                       )
+                mes = await SendMessage(chat_id=id,
+                                        text=get_mes("messages/setting_post.md"),
+                                        reply_markup=kb.create_keyboard(button, 2, 2, 2))
+            case _:
+                post = await SendMessage(chat_id=id,
+                                         text=new_post.text,
+                                         reply_markup=kb.create_keyboard(buttons, sizes))
+                an = await SendAnimation(chat_id=id,
+                                         caption=new_post.text,
+                                         animation=file
+                                         )
+                new_post.media.id_sticker = an.message_id
+                button = {"✅Под сообщением": "under",
+                          "Над сообщением": "abow",
+                          "Готово": "back_to_create_post"}
+                mes = await SendMessage(chat_id=id,
+                                        text=get_mes("messages/add_emoji.md"),
+                                        reply_markup=kb.create_keyboard(button, 2, 1))
+
     new_post.id_post = post.message_id
 
     user.message_id = mes.message_id

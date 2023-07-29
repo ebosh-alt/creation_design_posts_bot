@@ -13,6 +13,26 @@ from bot.utils.GetMessage import get_mes
 router = Router()
 
 
+def get_button(new_post: NewPost) -> dict:
+    button = {"Изменить текст": "change_text"}
+    if new_post.media.path is None:
+        button.update({"Добавить медиа": "add_media"})
+    else:
+        button.update({"Изменить медиа": "add_media"})
+    if new_post.url_button is None:
+        button.update({"+ URL-кнопки": "add_url_button"})
+    else:
+        button.update({"Изменить URL-кнопки": "add_url_button"})
+    if new_post.hidden_button is None:
+        button.update({"+ Скрытое продолжение": "add_hidden_button"})
+    else:
+        button.update({"Изменить скрытое продолжение": "add_hidden_button"})
+    button.update({"Отменить": "cancel",
+                   "Продолжить >>": "continue",
+                   })
+    return button
+
+
 @router.message(Command("newpost"))
 @router.message(lambda message: message.text == "Создать пост")
 async def newpost_start(message: Message, state: FSMContext):
@@ -55,34 +75,14 @@ async def choice_channel(call: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(States.new_post, lambda call: call.data == "back_to_create_post")
-@router.message(States.new_post, lambda message: message.photo is None and message.video is None and message.sticker is None)
+@router.message(States.new_post,
+                lambda message: message.photo is None and message.video is None and message.sticker is None)
 async def inp_text(message: Message, state: FSMContext):
     id = message.from_user.id
     user = users.get(id)
     data = await state.get_data()
     new_post: NewPost = data["post"]
-
-    button = {}
-    if new_post.media.path is None and new_post.url_button is None and new_post.hidden_button is None:
-        button = {
-            "Изменить текст": "change_text",
-            "Добавить медиа": "add_media",
-            "+ URL-кнопки": "add_url_button",
-            "+ Скрытое продолжение": "add_hidden_button",
-            "<< Отменить": "cancel",
-            "Продолжить >>": "continue",
-        }
-
-    elif new_post.url_button is not None and new_post.media.path is None and new_post.hidden_button is None:
-        button = {
-            "Изменить текст": "change_text",
-            "Добавить медиа": "add_media",
-            "+ URL-кнопки": "add_url_button",
-            "+ Скрытое продолжение": "add_hidden_button",
-            "<< Отменить": "cancel",
-            "Продолжить >>": "continue",
-        }
-
+    button = get_button(new_post)
     if type(message) is Message:
         new_post.text = message.text
         new_post.id_post = user.message_id
