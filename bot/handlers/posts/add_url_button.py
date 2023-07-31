@@ -158,12 +158,6 @@ async def data_button(message: Message, state: FSMContext):
                                         text=get_mes("messages/setting_post.md"),
                                         reply_markup=kb.create_keyboard(button_by_mes, 2, 2, 2))
                 new_post.media.id_sticker = an.message_id
-                # button = {"✅Под сообщением": "under",
-                #           "Над сообщением": "abow",
-                #           "Готово": "back_to_create_post"}
-                # mes = await SendMessage(chat_id=id,
-                #                         text=get_mes("messages/add_emoji.md"),
-                #                         reply_markup=kb.create_keyboard(button, 2, 1))
 
         new_post.id_post = post.message_id
 

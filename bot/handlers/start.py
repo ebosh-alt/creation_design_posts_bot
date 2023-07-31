@@ -6,13 +6,14 @@ from aiogram.types import Message, CallbackQuery
 from bot import keyboards as kb
 from bot.config import main_user, link_bot
 from bot.db import User, users
+from bot.states import States
 from bot.utils.GetMessage import get_mes
 from bot.utils.invoice_link import get_links
 
 router = Router()
 
 
-@router.callback_query(lambda call: call.data == "cancel")
+@router.callback_query(States.new_post, lambda call: call.data == "cancel")
 @router.message(Command("start"))
 async def start(message: Message | CallbackQuery):
     id = message.from_user.id

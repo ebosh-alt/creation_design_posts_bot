@@ -8,6 +8,7 @@ class States(StatesGroup):
     new_post = State()
     button = State()
     hidden_button = State()
+    delayed = State()
 
 
 

@@ -25,6 +25,7 @@ class HiddenButton:
     text_by_not_subscriber: str = None
     ready: bool = False
 
+
 class NewMedia:
     path: str = None
     type: TypeFile = None
@@ -39,3 +40,8 @@ class NewPost:
     hidden_button: HiddenButton = None
     media: NewMedia = NewMedia
     id_post: int = None
+    channels: list = None
+    protect: bool = False
+    time: int = 0
+    duration: int = 0
+    delayed: str = None

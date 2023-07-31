@@ -159,4 +159,6 @@ async def inp_text(message: Message, state: FSMContext):
                               text=get_mes("messages/setting_post.md"),
                               reply_markup=kb.create_keyboard(button, 2, 2, 2))
 
+
+
 new_post_router = router

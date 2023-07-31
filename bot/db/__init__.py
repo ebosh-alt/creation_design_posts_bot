@@ -14,7 +14,7 @@ buttons = Buttons(db_file_name=db_file_name, table_name="users")
 urlButtons = UrlButtons(db_file_name=db_file_name, table_name="users")
 hiddenButtons = HiddenButtons(db_file_name=db_file_name, table_name="users")
 media = Media(db_file_name=db_file_name, table_name="users")
-__all__ = ("channels", "Channel",
+__all__ = ("channels", "Channel", "Channels",
            "users", "User",
            "posts", "Post",
            "buttons", "Button",
