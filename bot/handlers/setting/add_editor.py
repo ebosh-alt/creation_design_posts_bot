@@ -1,13 +1,12 @@
 from aiogram import Router
 from aiogram.fsm.context import FSMContext
-from aiogram.methods import SendMessage, GetChatMemberCount, EditMessageText, DeleteMessage, AnswerCallbackQuery, \
-    LeaveChat
-from aiogram.types import Message, CallbackQuery
-from bot import keyboards as kb
+from aiogram.methods import EditMessageText
+from aiogram.types import CallbackQuery
 
+from bot import keyboards as kb
+from bot.db import users
 from bot.states import States
 from bot.utils.GetMessage import get_mes
-from bot.db import channels, users
 from bot.utils.invoice_link import get_invoice_link
 
 router = Router()

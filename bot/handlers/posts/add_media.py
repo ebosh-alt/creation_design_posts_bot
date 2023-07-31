@@ -112,10 +112,20 @@ async def asl(message: Message, state: FSMContext):
     await DeleteMessage(chat_id=id, message_id=message.message_id)
     await DeleteMessage(chat_id=id, message_id=new_post.id_post)
     await DeleteMessage(chat_id=id, message_id=user.message_id)
-    keyboard = None
-    if new_post.url_button:
-        button, sizes = new_post.url_button.button, new_post.url_button.sizes
-        keyboard = kb.create_keyboard(button, sizes)
+    if new_post.media.type is TypeFile.Sticker:
+        await DeleteMessage(chat_id=id, message_id=new_post.media.id_sticker)
+    keyboard_by_post = None
+    buttons = {}
+    if new_post.url_button is not None:
+        buttons.update(new_post.url_button.button)
+    if new_post.hidden_button is not None:
+        buttons.update({new_post.hidden_button.name: new_post.id_post})
+    if buttons:
+        if new_post.url_button is not None:
+            keyboard_by_post = kb.create_keyboard(buttons, new_post.url_button.sizes)
+        else:
+            keyboard_by_post = kb.create_keyboard(buttons)
+
     file = FSInputFile(file_path)
     button = get_button(new_post)
 
@@ -124,7 +134,7 @@ async def asl(message: Message, state: FSMContext):
             post = await SendPhoto(chat_id=id,
                                    caption=new_post.text,
                                    photo=file,
-                                   reply_markup=keyboard
+                                   reply_markup=keyboard_by_post
                                    )
             mes = await SendMessage(chat_id=id,
                                     text=get_mes("messages/setting_post.md"),
@@ -134,7 +144,7 @@ async def asl(message: Message, state: FSMContext):
             post = await SendVideo(chat_id=id,
                                    caption=new_post.text,
                                    video=file,
-                                   reply_markup=keyboard
+                                   reply_markup=keyboard_by_post
                                    )
             mes = await SendMessage(chat_id=id,
                                     text=get_mes("messages/setting_post.md"),
@@ -142,7 +152,7 @@ async def asl(message: Message, state: FSMContext):
         case _:
             post = await SendMessage(chat_id=id,
                                      text=new_post.text,
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard_by_post)
             an = await SendAnimation(chat_id=id,
                                      caption=new_post.text,
                                      animation=file
@@ -215,27 +225,32 @@ async def del_media_post(call: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     new_post = data["post"]
     type_media = new_post.media.type
-
     if type_media is TypeFile.Sticker:
         await DeleteMessage(chat_id=id, message_id=new_post.media.id_sticker)
     await DeleteMessage(chat_id=id, message_id=new_post.id_post)
-    keyboard = None
-    if new_post.url_button:
-        keyboard = kb.create_keyboard(new_post.url_button.button, new_post.url_button.sizes)
-    if new_post.hidden_button:
-        pass
+    keyboard_by_post = None
+    button_by_post = {}
+    if new_post.url_button is not None:
+        button_by_post.update(new_post.url_button.button)
+    if new_post.hidden_button is not None:
+        button_by_post.update({new_post.hidden_button.name: new_post.id_post})
+    if button_by_post:
+        if new_post.url_button is not None:
+            keyboard_by_post = kb.create_keyboard(button_by_post, new_post.url_button.sizes)
+        else:
+            keyboard_by_post = kb.create_keyboard(button_by_post)
+
     new_post.media = NewMedia()
     button = get_button(new_post)
     await EditMessageText(chat_id=id,
                           message_id=user.message_id,
                           text=new_post.text,
-                          reply_markup=keyboard
+                          reply_markup=keyboard_by_post
                           )
     mes = await SendMessage(chat_id=id,
                             text=get_mes("messages/setting_post.md"),
                             reply_markup=kb.create_keyboard(button, 2, 2, 2))
-
-    # new_post.id_post = post.message_id
+    new_post.id_post = user.message_id
     user.message_id = mes.message_id
     users.update(user)
     await state.update_data(post=new_post)

@@ -14,10 +14,16 @@ class TypeFile(Enum):
     Sticker = 2
 
 
-class NewButton:
+class UrlButton:
     button: dict = None
     sizes: list = None
 
+
+class HiddenButton:
+    name: str = None
+    text_by_subscriber: str = None
+    text_by_not_subscriber: str = None
+    ready: bool = False
 
 class NewMedia:
     path: str = None
@@ -29,7 +35,7 @@ class NewMedia:
 class NewPost:
     id_channel: int = None
     text: str = None
-    url_button: NewButton = None
-    hidden_button: list[NewButton] = None
+    url_button: UrlButton = None
+    hidden_button: HiddenButton = None
     media: NewMedia = NewMedia
     id_post: int = None

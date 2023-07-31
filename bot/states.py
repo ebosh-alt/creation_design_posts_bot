@@ -7,6 +7,7 @@ class States(StatesGroup):
     add_editor = State()
     new_post = State()
     button = State()
+    hidden_button = State()
 
 
 
