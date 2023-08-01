@@ -5,10 +5,11 @@ from aiogram.types import Message, CallbackQuery
 
 from bot import keyboards as kb
 from bot.config import main_user, link_bot
-from bot.db import User, users
+from bot.db import User, users, posts
 from bot.states import States
 from bot.utils.GetMessage import get_mes
 from bot.utils.invoice_link import get_links
+from bot.utils.send_post import send_post
 
 router = Router()
 
@@ -39,6 +40,11 @@ async def start(message: Message | CallbackQuery):
         user.message_id = mes.message_id
 
         users.update(user)
+
+
+@router.message(Command("test"))
+async def test(message):
+    send_post(post=posts.get(2721))
 
 
 start_router = router

@@ -12,6 +12,8 @@ class TypeFile(Enum):
     Photo = 0
     Video = 1
     Sticker = 2
+    UrlButton = 4
+    HiddenButton = 5
 
 
 class UrlButton:

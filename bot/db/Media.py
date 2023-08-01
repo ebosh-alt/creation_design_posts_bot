@@ -1,6 +1,7 @@
 from collections import namedtuple
 
 from .SQLite import Sqlite3_Database
+from ..const import TypeFile
 
 
 class File:
@@ -8,15 +9,14 @@ class File:
         self.id: int = id
         if len(kwargs):
             self.path_to_file = kwargs.get('path_to_file')
-            self.type = kwargs.get('type')
-            self.number = kwargs.get('number')
+            self.type = TypeFile(kwargs.get('type'))
+            self.location = bool(kwargs.get('location'))
             self.id_post = kwargs.get('id_post')
-
 
         else:
             self.path_to_file = ""
-            self.type = ""
-            self.number = 0
+            self.type = None
+            self.location = True
             self.id_post = 0
 
     def __iter__(self):
@@ -52,13 +52,16 @@ class Media(Sqlite3_Database):
             obj = self.get(id)
             yield obj
 
+    def get_media(self, id):
+        data = self.get_by_other_field(value=id, field="id_post", attr="*")
+        return data[0]
     def get(self, id: int) -> File | bool:
         if id in self:
             obj_tuple = self.get_elem_sqllite3(id)
             obj = File(id=obj_tuple[0],
                        path_to_file=obj_tuple[1],
                        type=obj_tuple[2],
-                       number=obj_tuple[3],
+                       location=obj_tuple[3],
                        id_post=obj_tuple[4],
                        )
             return obj

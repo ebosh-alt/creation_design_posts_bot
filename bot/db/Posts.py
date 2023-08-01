@@ -8,15 +8,21 @@ class Post:
         self.id: int = id
         if len(kwargs):
             self.text = kwargs.get('text')
-            self.under_the_text = kwargs.get('under_the_text')
             self.media = bool(kwargs.get('media'))
             self.button = bool(kwargs.get('button'))
+            self.protect = bool(kwargs.get("protect"))
+            self.time = int(kwargs.get('time'))
+            self.duration = int(kwargs.get('duration'))
+            self.delayed = kwargs.get('delayed')
 
         else:
             self.text = ""
-            self.under_the_text = True
             self.media = False
             self.button = False
+            self.protect = False
+            self.time = 0
+            self.duration = 0
+            self.delayed = ""
 
     def __iter__(self):
         dict_class = self.__dict__
@@ -56,9 +62,12 @@ class Posts(Sqlite3_Database):
             obj_tuple = self.get_elem_sqllite3(id)
             obj = Post(id=obj_tuple[0],
                        text=obj_tuple[1],
-                       under_the_text=obj_tuple[2],
-                       media=obj_tuple[3],
-                       button=obj_tuple[4],
+                       media=obj_tuple[2],
+                       button=obj_tuple[3],
+                       protect=obj_tuple[4],
+                       time=obj_tuple[5],
+                       duration=obj_tuple[6],
+                       delayed=obj_tuple[7],
                        )
             return obj
         return False

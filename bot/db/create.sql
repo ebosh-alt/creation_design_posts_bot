@@ -16,40 +16,60 @@ create table users(
 create table posts(
     id primary key,
     text text,
-    under_the_text boolean,
     media boolean,
-    button boolean
+    button boolean,
+    protect boolean,
+    time integer,
+    duration integer,
+    delayed text
 );
 
-create table buttons(
-    id primary key,
-    name text,
-    type text,
-    number integer,
-    message_id int,
-    foreign key (id) references posts(id)
-);
+-- create table buttons(
+--     id primary key,
+--     name text,
+--     type text,
+--     post_id int,
+--     foreign key (post_id) references posts(id)
+-- );
 
 create table url_buttons(
     id primary key,
+    name text,
     url text,
-    id_button integer,
-    foreign key (id_button) references buttons(id)
+    sizes text,
+    id_post integer,
+    foreign key (id_post) references posts(id)
 );
 
 create table hidden_buttons(
     id primary key,
+    name text,
     text_by_subscriber text,
-    text_bu_not_subscriber text,
-    id_button integer,
-    foreign key (id_button) references buttons(id)
+    text_by_not_subscriber text,
+    id_post integer,
+    foreign key (id_post) references posts(id)
 );
 
 create table media(
     id primary key,
     path_to_file text,
-    type text,
-    number integer,
+    type integer,
+    location boolean,
     id_post integer,
     foreign key (id_post) references posts(id)
 );
+
+create table post_channel(
+    id primary key,
+    id_post integer,
+    id_channel integer,
+    foreign key (id_post) references posts(id),
+    foreign key (id_channel) references channels(id)
+);
+drop table users;
+drop table media;
+drop table posts;
+-- drop table buttons;
+drop table hidden_buttons;
+drop table url_buttons;
+drop table post_channel;

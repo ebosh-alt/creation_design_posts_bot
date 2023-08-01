@@ -5,8 +5,9 @@ from aiogram.methods import SendMessage, EditMessageText, SendPhoto, SendAnimati
 from aiogram.types import Message, CallbackQuery, FSInputFile
 
 from bot import keyboards as kb
-from bot.const import NewPost, TypeFile, HiddenButton
-from bot.db import users, channels, Channels
+from bot.const import NewPost, TypeFile
+from bot.db import users, channels, Channels, Post, postChannels, PostChannel, File, media, UrlButton, posts, \
+    urlButtons, hiddenButtons, HiddenButton
 from bot.states import States
 from bot.utils.GetMessage import get_mes
 
@@ -129,7 +130,7 @@ def get_kb_by_choice_channel(data: Channels, new_post: NewPost):
             button.update({f"✅{channel.name}": f"choice_{channel.id}"})
         else:
             button.update({channel.name: f"choice_{channel.id}"})
-
+    button.update({"<< Назад": "continue"})
     keyboard = kb.create_keyboard(button)
     return keyboard
 
@@ -144,7 +145,7 @@ def get_button(new_post: NewPost) -> dict:
     button.update({"Автоповтор": "repeat"})
     button.update({"Отложить": "delayed"})
     button.update({"<< Назад": "back_to_create_post"})
-    button.update({"Опубликовать": "s"})
+    button.update({"Опубликовать": "publish"})
     return button
 
 
@@ -154,12 +155,13 @@ async def set_post(call: CallbackQuery, state: FSMContext):
     user = users.get(id)
     data = await state.get_data()
     current_state = await state.get_state()
-    print(current_state == "States:new_post")
     if current_state == "States:new_post":
         await state.set_state(States.new_post)
     new_post: NewPost = data["post"]
     if call.data == "protect":
         new_post.protect = not new_post.protect
+    if not new_post.channels:
+        new_post.channels = [new_post.id_channel]
     button = get_button(new_post)
     await state.update_data(post=new_post)
     await EditMessageText(chat_id=id,
@@ -174,8 +176,7 @@ async def choice_channel(call: CallbackQuery, state: FSMContext):
     user = users.get(id)
     data = await state.get_data()
     new_post: NewPost = data["post"]
-    if not new_post.channels:
-        new_post.channels = [new_post.id_channel]
+
     if "choice_" in call.data:
         id_channel = int(call.data.replace("choice_", ""))
         if id_channel == new_post.id_channel:
@@ -272,6 +273,78 @@ async def inp_delayed(message: Message, state: FSMContext):
                           reply_markup=kb.create_keyboard(button, 2, 2, 2))
     await state.set_state(States.new_post)
     await state.update_data(post=new_post)
+
+
+@router.callback_query(States.new_post, lambda call: call.data == "publish" or call.data == "confirm_public")
+async def publish_post(call: CallbackQuery, state: FSMContext):
+    id = call.from_user.id
+    user = users.get(id)
+    data = await state.get_data()
+    new_post: NewPost = data["post"]
+    channel = channels.get(new_post.id_channel)
+    if channel.confirm_public and call.data != "confirm_public":
+        button = {"Подтвердить опубликование": "confirm_public",
+                  "<< Назад": "continue"}
+        keyboard = kb.create_keyboard(button)
+        await EditMessageText(chat_id=id,
+                              message_id=user.message_id,
+                              text="Точно отправляем?",
+                              reply_markup=keyboard)
+    elif call.data == "confirm_public" or not channel.confirm_public:
+        await DeleteMessage(chat_id=id, message_id=user.message_id)
+        await DeleteMessage(chat_id=id, message_id=new_post.id_post)
+        if new_post.media.type is TypeFile.Sticker:
+            await DeleteMessage(chat_id=id, message_id=new_post.media.id_sticker)
+        mes = await SendMessage(chat_id=id,
+                                text=get_mes("messages/start.md"),
+                                reply_markup=kb.start)
+
+        user.message_id = mes.message_id
+        users.update(user)
+
+        post = Post(new_post.id_post)
+        post.text = new_post.text
+        post.protect = new_post.protect
+        post.time = new_post.time
+        post.duration = new_post.duration
+        post.delayed = new_post.delayed
+        if new_post.channels:
+            post_channels = PostChannel(len(postChannels.get_keys()) + 1)
+            post_channels.id_post = new_post.id_post
+            post_channels.id_channel = new_post.id_channel
+            postChannels.add(post_channels)
+        if new_post.media.path is not None:
+            post.media = True
+            file = File(len(media.get_keys()) + 1)
+            file.path_to_file = new_post.media.path
+            file.type = new_post.media.type.value
+            file.id_post = new_post.id_post
+            file.location = new_post.media.location
+            media.add(file)
+        if new_post.url_button is not None:
+            post.button = True
+            for el in new_post.url_button.button:
+                button = UrlButton(len(urlButtons.get_keys()) + 1)
+                button.name = el
+                button.url = new_post.url_button.button[el]
+                sizes = ""
+                for i in new_post.url_button.sizes:
+                    sizes += str(i) + " "
+                button.sizes = sizes.strip()
+                button.id_post = new_post.id_post
+                urlButtons.add(button)
+        if new_post.hidden_button is not None:
+            post.button = True
+            hid_button = HiddenButton(len(hiddenButtons.get_keys()) + 1)
+            hid_button.name = new_post.hidden_button.name
+            hid_button.text_by_subscriber = new_post.hidden_button.text_by_subscriber
+            hid_button.text_by_not_subscriber = new_post.hidden_button.text_by_not_subscriber
+            hid_button.id_post = new_post.id_post
+            hiddenButtons.add(hid_button)
+        for el in post:
+            print(el.name, ": ", el.value)
+        posts.add(post)
+        await state.clear()
 
 
 setting_post_router = router

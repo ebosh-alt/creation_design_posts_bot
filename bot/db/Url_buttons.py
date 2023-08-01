@@ -7,13 +7,18 @@ class UrlButton:
     def __init__(self, id, **kwargs):
         self.id: int = id
         if len(kwargs):
+            self.name = kwargs.get('name')
             self.url = kwargs.get('url')
-            self.id_button = kwargs.get('id_button')
+            self.sizes = kwargs.get('sizes')
+            self.id_post = kwargs.get('id_button')
+
 
 
         else:
+            self.name = ""
             self.url = ""
-            self.id_button = 0
+            self.sizes = ""
+            self.id_post = 0
 
     def __iter__(self):
         dict_class = self.__dict__
@@ -48,13 +53,19 @@ class UrlButtons(Sqlite3_Database):
             obj = self.get(id)
             yield obj
 
+    def get_button(self, id):
+        data = self.get_by_other_field(value=id, field="id_post", attr="*")
+        if data:
+            return data
+
     def get(self, id: int) -> UrlButton | bool:
         if id in self:
             obj_tuple = self.get_elem_sqllite3(id)
             obj = UrlButton(id=obj_tuple[0],
-                            url=obj_tuple[1],
-                            id_button=obj_tuple[2],
-
+                            name=obj_tuple[1],
+                            url=obj_tuple[2],
+                            sizes=obj_tuple[3],
+                            id_post=obj_tuple[4],
                             )
             return obj
         return False

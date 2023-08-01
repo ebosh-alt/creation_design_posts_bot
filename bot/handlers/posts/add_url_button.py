@@ -219,16 +219,28 @@ async def del_buttons(call: CallbackQuery, state: FSMContext):
                                         text=get_mes("messages/setting_post.md"),
                                         reply_markup=kb.create_keyboard(button_by_mes, 2, 2, 2))
             case _:
-                post = await SendMessage(chat_id=id,
-                                         text=new_post.text,
-                                         reply_markup=keyboard_by_post)
-                an = await SendAnimation(chat_id=id,
-                                         caption=new_post.text,
-                                         animation=file
-                                         )
-                mes = await SendMessage(chat_id=id,
-                                        text=get_mes("messages/setting_post.md"),
-                                        reply_markup=kb.create_keyboard(button_by_mes, 2, 2, 2))
+                if new_post.media.location:
+                    post = await SendMessage(chat_id=id,
+                                             text=new_post.text,
+                                             reply_markup=keyboard_by_post)
+                    an = await SendAnimation(chat_id=id,
+                                             caption=new_post.text,
+                                             animation=file
+                                             )
+                    mes = await SendMessage(chat_id=id,
+                                            text=get_mes("messages/setting_post.md"),
+                                            reply_markup=kb.create_keyboard(button_by_mes, 2, 2, 2))
+                else:
+                    an = await SendAnimation(chat_id=id,
+                                             caption=new_post.text,
+                                             animation=file
+                                             )
+                    post = await SendMessage(chat_id=id,
+                                             text=new_post.text,
+                                             reply_markup=keyboard_by_post)
+                    mes = await SendMessage(chat_id=id,
+                                            text=get_mes("messages/setting_post.md"),
+                                            reply_markup=kb.create_keyboard(button_by_mes, 2, 2, 2))
                 new_post.media.id_sticker = an.message_id
 
         new_post.id_post = post.message_id
