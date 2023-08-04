@@ -1,18 +1,14 @@
 import asyncio
+import datetime
 import time
 from multiprocessing import Process
 
 from aiogram.types import FSInputFile
-from schedule import run_pending
-from aiogram.methods import SendMessage, SendPhoto, SendVideo, SendAnimation
-
-from bot.const import TypeFile
-from bot.db import Posts
-from bot.db import users, channels, Channels, Post, postChannels, PostChannel, File, media, UrlButton, posts, \
-    urlButtons, hiddenButtons, HiddenButton
 
 from bot import keyboards as kb
 from bot.config import bot
+from bot.const import TypeFile
+from bot.db import Post, postChannels, media, posts, urlButtons, hiddenButtons
 
 
 async def send(id: int, text: str, protect_content: bool, keyboard, send_media):
@@ -61,8 +57,9 @@ async def send(id: int, text: str, protect_content: bool, keyboard, send_media):
                                reply_markup=keyboard)
 
 
-def send_post():
-    post: Post = posts.get(2737)
+def get_info_post(post: Post = None):
+    if post is None:
+        post: Post = posts.get(2835)
     id_channels = postChannels.get_channels(post.id)
     send_media = None
     hidden_button = None
@@ -86,11 +83,38 @@ def send_post():
         send_buttons.update({hidden_button[1]: hidden_button[0]})
     if send_buttons:
         keyboard = kb.create_keyboard(send_buttons, sizes_but)
+    return post.text, post.protect, keyboard, send_media, id_channels
 
+
+def sending(post):
+    data = get_info_post(post)
+    text = data[0]
+    protect = data[1]
+    keyboard = data[2]
+    send_media = data[3]
+    id_channels = data[4]
     for id in id_channels:
         loop = asyncio.get_event_loop()
+
         loop.run_until_complete(
-            send(id=id, text=post.text, protect_content=post.protect, keyboard=keyboard, send_media=send_media))
+            send(id=id, text=text, protect_content=protect, keyboard=keyboard, send_media=send_media))
+
+
+def check():
+    now_time = datetime.datetime.utcnow()
+    for post in posts:
+        if post.send_time:
+            send_time = datetime.datetime.utcfromtimestamp(post.send_time)
+            if now_time.hour == send_time.hour and now_time.minute == send_time.minute:
+                sending(post)
+                end_posting = datetime.datetime.utcfromtimestamp(post.end_posting)
+                if end_posting.day == now_time.day and end_posting.hour == now_time.hour and \
+                        end_posting.minute == now_time.minute and post.end_posting != 0:
+                    post.send_time = 0
+                else:
+                    post.send_time = now_time + datetime.timedelta(hours=post.time)
+                    post.send_time = post.send_time.timestamp()
+                posts.update(post)
 
 
 class SendingPost:
@@ -109,12 +133,10 @@ class SendingPost:
 
     @staticmethod
     def work():
-        send_post()
+        check()
+        # send_post()
 
     def start_schedule(self):
         while True:
             self.work()
             time.sleep(10)
-
-
-

@@ -15,36 +15,36 @@ router = Router()
 
 
 def parse_button(data: str) -> tuple[dict, list]:
-    if "|" not in data:
-        new_data = []
-        if "\n" in data:
-            data = data.split("\n")
-        else:
-            data = data.split(" ")
-        link = data[-1]
-        text = " ".join(data[:-1])
-        button = {}
-        if validators.url(link) is True:
-            button.update({text: link})
+    # if "|" not in data and "\n" not in data:
+    #     new_data = []
+    #     if "\n" in data:
+    #         data = data.split("\n")
+    #     else:
+    #         data = data.split(" ")
+    #
+    #     link = data[-1]
+    #     text = " ".join(data[:-1])
+    #     button = {}
+    #     if validators.url(link) is True:
+    #         button.update({text: link})
+    #     new_data.append(button)
+    # else:
+    data = data.split("\n")
+    new_data = []
+    button = {}
+    for i in range(len(data)):
+        line = data[i]
+        line = line.strip().split("|")
+        for butt in line:
+            butt = butt.strip().split(" ")
+
+            link = butt[-1]
+            text = " ".join(butt[:-1])
+            if validators.url(link) is True:
+                button.update({text: link})
+
         new_data.append(button)
-    else:
-        data = data.split("\n")
-        new_data = []
         button = {}
-        for i in range(len(data)):
-            line = data[i]
-            line = line.strip().split("|")
-
-            for butt in line:
-                butt = butt.strip().split(" ")
-
-                link = butt[-1]
-                text = " ".join(butt[:-1])
-                if validators.url(link) is True:
-                    button.update({text: link})
-
-            new_data.append(button)
-            button = {}
     buttons = {}
     sizes = []
     for i in new_data:

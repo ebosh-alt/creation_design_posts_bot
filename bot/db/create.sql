@@ -21,8 +21,12 @@ create table posts(
     protect boolean,
     time integer,
     duration integer,
-    delayed text
+    delayed text,
+    send_time integer,
+    end_posting integer
 );
+
+drop table posts;
 
 -- create table buttons(
 --     id primary key,

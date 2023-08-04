@@ -1,6 +1,6 @@
 import asyncio
 import sys
-
+from multiprocessing import Process
 
 sys.path.append("D:/telegram_bots/creation_design_posts")
 from bot.utils.send_post import SendingPost
@@ -31,8 +31,10 @@ if __name__ == "__main__":
     # data = postChannels.get_channels(id=0)
     # print(data)
     with suppress(KeyboardInterrupt):
-        interest_calculation = SendingPost()
-        interest_calculation.start_process(func=interest_calculation.start_schedule)
         # asyncio.run(main())
+        sendingPost = SendingPost()
+        sendingPost.start_process(func=sendingPost.start_schedule)
+        p0 = Process(target=asyncio.run(main()))
+        p0.start()
 
 

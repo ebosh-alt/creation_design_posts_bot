@@ -43,7 +43,7 @@ class NewPost:
     media: NewMedia = NewMedia
     id_post: int = None
     channels: list = None
-    protect: bool = False
+    protect: bool = 0
     time: int = 0
     duration: int = 0
     delayed: str = None

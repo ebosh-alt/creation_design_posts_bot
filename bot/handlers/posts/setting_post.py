@@ -1,8 +1,9 @@
+import datetime
+
 from aiogram import Router
 from aiogram.fsm.context import FSMContext
-from aiogram.methods import SendMessage, EditMessageText, SendPhoto, SendAnimation, SendVideo, DeleteMessage, \
-    AnswerCallbackQuery
-from aiogram.types import Message, CallbackQuery, FSInputFile
+from aiogram.methods import SendMessage, EditMessageText, DeleteMessage, AnswerCallbackQuery
+from aiogram.types import Message, CallbackQuery
 
 from bot import keyboards as kb
 from bot.const import NewPost, TypeFile
@@ -10,6 +11,7 @@ from bot.db import users, channels, Channels, Post, postChannels, PostChannel, F
     urlButtons, hiddenButtons, HiddenButton
 from bot.states import States
 from bot.utils.GetMessage import get_mes
+from bot.utils.send_post import send, get_info_post
 
 router = Router()
 
@@ -341,9 +343,53 @@ async def publish_post(call: CallbackQuery, state: FSMContext):
             hid_button.text_by_not_subscriber = new_post.hidden_button.text_by_not_subscriber
             hid_button.id_post = new_post.id_post
             hiddenButtons.add(hid_button)
-        for el in post:
-            print(el.name, ": ", el.value)
-        posts.add(post)
+
+        if new_post.delayed is not None:
+            hour, minute = new_post.delayed.split(":")
+            hour, minute = int(hour) - 3, int(minute)
+            now_time = datetime.datetime.utcnow()
+            if hour > now_time.hour:
+                delayed = datetime.datetime(year=now_time.year, month=now_time.month, day=now_time.day,
+                                            hour=hour, minute=minute)
+            else:
+                delayed = datetime.datetime(year=now_time.year, month=now_time.month,
+                                            day=now_time.day + 1, hour=hour, minute=minute)
+            post.delayed = delayed
+            if new_post.time != 0:
+                post.send_time = delayed + datetime.timedelta(hours=new_post.time)
+                post.send_time = post.send_time.timestamp()
+
+            else:
+                post.send_time = 0
+
+            if new_post.duration != 0:
+                post.end_posting = delayed + datetime.timedelta(hours=new_post.duration)
+                post.end_posting = post.end_posting.timestamp()
+            else:
+                post.end_posting = 0
+            posts.add(post)
+
+        else:
+            if new_post.time != 0:
+                post.send_time = datetime.datetime.utcnow() + datetime.timedelta(hours=new_post.time)
+                post.send_time = post.send_time.timestamp()
+            else:
+                post.send_time = 0
+
+            if new_post.duration != 0:
+                post.end_posting = datetime.datetime.utcnow() + datetime.timedelta(hours=new_post.duration)
+                post.end_posting = post.end_posting.timestamp()
+            else:
+                post.end_posting = 0
+            posts.add(post)
+            data = get_info_post(post)
+            text = data[0]
+            protect = data[1]
+            keyboard = data[2]
+            send_media = data[3]
+            id_channels = data[4]
+            for id in id_channels:
+                await send(id=id, text=text, protect_content=protect, keyboard=keyboard, send_media=send_media)
         await state.clear()
 
 

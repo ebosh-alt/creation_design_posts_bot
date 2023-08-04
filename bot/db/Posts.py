@@ -14,6 +14,8 @@ class Post:
             self.time = int(kwargs.get('time'))
             self.duration = int(kwargs.get('duration'))
             self.delayed = kwargs.get('delayed')
+            self.send_time = kwargs.get('send_time')
+            self.end_posting = kwargs.get('end_posting')
 
         else:
             self.text = ""
@@ -23,6 +25,8 @@ class Post:
             self.time = 0
             self.duration = 0
             self.delayed = ""
+            self.send_time = 0
+            self.end_posting = 0
 
     def __iter__(self):
         dict_class = self.__dict__
@@ -68,6 +72,8 @@ class Posts(Sqlite3_Database):
                        time=obj_tuple[5],
                        duration=obj_tuple[6],
                        delayed=obj_tuple[7],
+                       send_time=obj_tuple[8],
+                       end_posting=obj_tuple[9],
                        )
             return obj
         return False
