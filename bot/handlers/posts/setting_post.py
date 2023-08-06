@@ -311,10 +311,11 @@ async def publish_post(call: CallbackQuery, state: FSMContext):
         post.duration = new_post.duration
         post.delayed = new_post.delayed
         if new_post.channels:
-            post_channels = PostChannel(len(postChannels.get_keys()) + 1)
-            post_channels.id_post = new_post.id_post
-            post_channels.id_channel = new_post.id_channel
-            postChannels.add(post_channels)
+            for key in new_post.channels:
+                post_channels = PostChannel(len(postChannels.get_keys()) + 1)
+                post_channels.id_post = post.id
+                post_channels.id_channel = key
+                postChannels.add(post_channels)
         if new_post.media.path is not None:
             post.media = True
             file = File(len(media.get_keys()) + 1)
@@ -346,38 +347,34 @@ async def publish_post(call: CallbackQuery, state: FSMContext):
 
         if new_post.delayed is not None:
             hour, minute = new_post.delayed.split(":")
-            hour, minute = int(hour) - 3, int(minute)
-            now_time = datetime.datetime.utcnow()
+            hour, minute = int(hour), int(minute)
+            now_time = datetime.datetime.now()
             if hour > now_time.hour:
                 delayed = datetime.datetime(year=now_time.year, month=now_time.month, day=now_time.day,
                                             hour=hour, minute=minute)
             else:
                 delayed = datetime.datetime(year=now_time.year, month=now_time.month,
                                             day=now_time.day + 1, hour=hour, minute=minute)
-            post.delayed = delayed
-            if new_post.time != 0:
-                post.send_time = delayed + datetime.timedelta(hours=new_post.time)
-                post.send_time = post.send_time.timestamp()
-
-            else:
-                post.send_time = 0
+            post.delayed = delayed.timestamp()
+            post.send_time = post.delayed
 
             if new_post.duration != 0:
                 post.end_posting = delayed + datetime.timedelta(hours=new_post.duration)
                 post.end_posting = post.end_posting.timestamp()
             else:
-                post.end_posting = 0
+                post.end_posting = post.delayed
+
             posts.add(post)
 
         else:
             if new_post.time != 0:
-                post.send_time = datetime.datetime.utcnow() + datetime.timedelta(hours=new_post.time)
+                post.send_time = datetime.datetime.now() + datetime.timedelta(hours=new_post.time)
                 post.send_time = post.send_time.timestamp()
             else:
                 post.send_time = 0
 
             if new_post.duration != 0:
-                post.end_posting = datetime.datetime.utcnow() + datetime.timedelta(hours=new_post.duration)
+                post.end_posting = datetime.datetime.now() + datetime.timedelta(hours=new_post.duration)
                 post.end_posting = post.end_posting.timestamp()
             else:
                 post.end_posting = 0

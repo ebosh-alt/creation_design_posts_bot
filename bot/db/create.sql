@@ -26,7 +26,6 @@ create table posts(
     end_posting integer
 );
 
-drop table posts;
 
 -- create table buttons(
 --     id primary key,
@@ -73,7 +72,6 @@ create table post_channel(
 drop table users;
 drop table media;
 drop table posts;
--- drop table buttons;
 drop table hidden_buttons;
 drop table url_buttons;
 drop table post_channel;

@@ -61,7 +61,7 @@ def create_reply_keyboard(name_buttons: list, one_time_keyboard: bool = False, r
     return keyboard.as_markup(resize_keyboard=True, one_time_keyboard=one_time_keyboard)
 
 
-start = create_reply_keyboard(["Создать пост", "Контент план", "Изменить пост", "Настройки"], True, False, 2, 2)
+start = create_reply_keyboard(["Создать пост", "Контент план", "Настройки"], True, False, 2, 2)
 
 btn_by_settings = {
     "Редакторы": "editors",
